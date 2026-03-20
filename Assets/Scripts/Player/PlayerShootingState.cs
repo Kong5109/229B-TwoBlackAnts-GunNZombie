@@ -1,16 +1,22 @@
 using UnityEngine;
 
-public class PlayerShootingState : MonoBehaviour
+public class PlayerShootingState : PlayerBaseState
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public PlayerShootingState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Enter()
     {
-        
+
+    }
+    public override void Tick(float deltaTime)
+    {
+
+    }
+
+    public override void Exit()
+    {
+
     }
 }

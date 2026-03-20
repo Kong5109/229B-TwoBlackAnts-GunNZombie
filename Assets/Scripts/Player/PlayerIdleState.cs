@@ -1,16 +1,23 @@
 using UnityEngine;
 
-public class PlayerIdleState : MonoBehaviour
+public class PlayerIdleState : PlayerBaseState
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public PlayerIdleState(PlayerStateMachine stateMachine) : base(stateMachine)
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Enter()
     {
-        
+
     }
+    public override void Tick(float deltaTime)
+    {
+
+    }
+
+    public override void Exit()
+    { 
+
+    }
+
 }

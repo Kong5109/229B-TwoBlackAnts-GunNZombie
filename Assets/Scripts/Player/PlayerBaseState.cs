@@ -1,16 +1,10 @@
 using UnityEngine;
 
-public class PlayerBaseState : MonoBehaviour
+public abstract class PlayerBaseState : State
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected PlayerStateMachine stateMachine;
+    public PlayerBaseState(PlayerStateMachine stateMachine)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this.stateMachine = stateMachine;
     }
 }
