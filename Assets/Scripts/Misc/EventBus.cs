@@ -1,16 +1,29 @@
+using System;
 using UnityEngine;
 
 public class EventBus : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public event Action OnGameStart;
+    public event Action OnGameOver;
+    public event Action<Enemy> OnEnemySpawn;
+    public event Action<Enemy> OnEnemyDeath;
+    public void RaiseGameStart()
     {
-        
+        OnGameStart?.Invoke();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void RaiseGameOver()
     {
-        
+        OnGameOver?.Invoke();
+    }
+
+    public void RaiseEnemySpawn(Enemy enemy)
+    {
+        OnEnemySpawn?.Invoke(enemy);
+    }
+
+    public void RaiseEnemyDeath(Enemy enemy)
+    {
+        OnEnemyDeath?.Invoke(enemy);
     }
 }
