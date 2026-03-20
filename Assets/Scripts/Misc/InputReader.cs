@@ -1,16 +1,33 @@
+using System;
 using UnityEngine;
 
-public class InputReader : MonoBehaviour
+public class InputReader : MonoBehaviour, PlayerInput.IPlayerActions, PlayerInput.IUIActions
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [field : SerializeField] public bool IsHoldAttacking {  get; private set; }
+
+    public event Action OnAttacking;
+    public event Action OnUIExit;
+
+    private PlayerInput inputActions;
+
+    private void OnEnable()
     {
-        
+        inputActions = new PlayerInput();
+
+        inputActions.Enable();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnAttack(UnityEngine.InputSystem.InputAction.CallbackContext context)
     {
-        
+        IsHoldAttacking = context.performed;
+
+        if (context.performed == false) { return; }
+        OnAttacking?.Invoke();
+    }
+
+    public void OnEsc(UnityEngine.InputSystem.InputAction.CallbackContext context)
+    {
+        if (context.performed == false) { return; }
+        OnUIExit?.Invoke();
     }
 }
