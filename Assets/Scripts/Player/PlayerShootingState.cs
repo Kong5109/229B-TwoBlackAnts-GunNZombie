@@ -8,7 +8,7 @@ public class PlayerShootingState : PlayerBaseState
 
     public override void Enter()
     {
-
+        stateMachine.Player.OnPlayerShooting += ShootWeapon;
     }
     public override void Tick(float deltaTime)
     {
@@ -17,6 +17,11 @@ public class PlayerShootingState : PlayerBaseState
 
     public override void Exit()
     {
+        stateMachine.Player.OnPlayerShooting -= ShootWeapon;
+    }
 
+    private void ShootWeapon()
+    {
+        Debug.Log("Gun Shoot");
     }
 }
