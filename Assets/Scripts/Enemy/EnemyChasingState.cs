@@ -1,16 +1,37 @@
 using UnityEngine;
 
-public class EnemyChasingState : MonoBehaviour
+public class EnemyChasingState : EnemyBaseState
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public EnemyChasingState(EnemyStateMachine stateMachine) : base(stateMachine)
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Enter()
     {
-        
+    }
+    public override void Tick(float deltaTime)
+    {
+        if (stateMachine.Enemy.Target != null)
+        {
+            Vector3 startPos = stateMachine.transform.position;
+            Vector3 targetPos = stateMachine.Enemy.Target.transform.position;
+            if (IsInRange(startPos, targetPos, stateMachine.Enemy.AttackRange))
+            {
+                stateMachine.SwitchState(new EnemyAttackState(stateMachine));
+                return;
+            }
+
+            FaceTarget(stateMachine.Enemy.Target.transform.position);
+            MoveTo(stateMachine.Enemy.Target.transform.position);
+        }
+        else
+        {
+            stateMachine.SwitchState(new EnemyIdleState(stateMachine));
+            return;
+        }
+    }
+
+    public override void Exit()
+    {
     }
 }
