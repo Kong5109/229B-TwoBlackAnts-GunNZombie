@@ -5,7 +5,7 @@ public class InputReader : MonoBehaviour, PlayerInput.IPlayerActions, PlayerInpu
 {
     public event Action OnAttacking;
     public event Action OnUIExit;
-    [field : SerializeField] public bool IsHoldAttacking {  get; private set; }
+    public bool IsHoldAttacking {  get; private set; }
 
     private PlayerInput inputActions;
 

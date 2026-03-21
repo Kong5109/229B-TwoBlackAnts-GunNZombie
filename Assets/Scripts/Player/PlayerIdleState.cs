@@ -12,7 +12,11 @@ public class PlayerIdleState : PlayerBaseState
     }
     public override void Tick(float deltaTime)
     {
-
+        if (stateMachine.Player.IsShootingMode)
+        {
+            stateMachine.SwitchState(new PlayerShootingState(stateMachine));
+            return;
+        }
     }
 
     public override void Exit()
