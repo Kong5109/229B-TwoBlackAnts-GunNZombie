@@ -13,10 +13,7 @@ public class Player : MonoBehaviour
     public Camera Camera { get; private set; }
     private void Awake()
     {
-        InputReader?.GetComponent<InputReader>();
-        Weapon?.GetComponent<Weapon>();
-
-        EventBus = FindAnyObjectByType<EventBus>();
+        EventBus ??= FindAnyObjectByType<EventBus>();
     }
     private void Start()
     {
