@@ -444,6 +444,7 @@ MonoBehaviour:
   <MoveSpeed>k__BackingField: 2
   <ChasingRange>k__BackingField: 50
   <AttackRange>k__BackingField: 2
+  <Health>k__BackingField: 100
 --- !u!136 &503404453
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -507,7 +508,7 @@ GameObject:
   - component: {fileID: 689821924}
   - component: {fileID: 689821923}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Sand Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -520,7 +521,7 @@ MeshCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 689821922}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: fc266edbd24c1d6439a25639632bf75b, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1485,7 +1486,6 @@ MonoBehaviour:
   projectilePrefab: {fileID: 7856433395512848774, guid: 0e6fbde77cbb83345b9ef343c5cce3e0, type: 3}
   shootPoint: {fileID: 1214500738}
   bulletAcceleration: 80
-  reloadTime: 1.5
   <CurrentGunData>k__BackingField: {fileID: 0}
 --- !u!114 &1934643870
 MonoBehaviour:
@@ -1499,9 +1499,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e2515520e466c49becbff4026630f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunObject: {fileID: 2082371211}
-  gunType: 0
-  maxAmmo: 10
+  <GunObject>k__BackingField: {fileID: 2082371211}
+  <GunType>k__BackingField: 0
+  <MaxAmmo>k__BackingField: 10
+  <WeaponDamage>k__BackingField: 30
+  reloadTime: 1.5
   <CurrentAmmo>k__BackingField: 0
   <IsReloading>k__BackingField: 0
   <ReloadRemaningTime>k__BackingField: 1
@@ -1517,9 +1519,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4e2515520e466c49becbff4026630f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunObject: {fileID: 1401019096}
-  gunType: 1
-  maxAmmo: 3
+  <GunObject>k__BackingField: {fileID: 1401019096}
+  <GunType>k__BackingField: 1
+  <MaxAmmo>k__BackingField: 3
+  <WeaponDamage>k__BackingField: 100
+  reloadTime: 2
   <CurrentAmmo>k__BackingField: 0
   <IsReloading>k__BackingField: 0
   <ReloadRemaningTime>k__BackingField: 1

@@ -6,9 +6,11 @@ using UnityEngine;
 public class GunData : MonoBehaviour
 {
     [field: Header("Gun Attrubute")]
-    public GameObject gunObject;
-    public GunType gunType;
-    public int maxAmmo = 30;
+    [field: SerializeField] public GameObject GunObject { get; private set; }
+    [field: SerializeField] public GunType GunType { get; private set; }
+    [field: SerializeField] public int MaxAmmo { get; private set; } = 10;
+    [field: SerializeField] public int WeaponDamage { get; private set; } = 30;
+    [SerializeField] private float reloadTime = 1.5f;
 
     [field: Header("Gun Data")]
     [field: SerializeField] public int CurrentAmmo { get; private set; }
@@ -17,13 +19,14 @@ public class GunData : MonoBehaviour
 
     public void Initialize()
     {
-        CurrentAmmo = maxAmmo;
+        CurrentAmmo = MaxAmmo;
         IsReloading = false;
     }
 
-    public void StartReload(float reloadTime)
+    public void StartReload()
     {
-        if (IsReloading || CurrentAmmo == maxAmmo) return;
+        if (IsReloading || CurrentAmmo == MaxAmmo) return;
+
         ReloadRemaningTime = reloadTime;
         IsReloading = true;
     }
@@ -34,7 +37,7 @@ public class GunData : MonoBehaviour
 
         if (ReloadRemaningTime < 0)
         {
-            CurrentAmmo = maxAmmo;
+            CurrentAmmo = MaxAmmo;
             IsReloading = false;
             return;
         }

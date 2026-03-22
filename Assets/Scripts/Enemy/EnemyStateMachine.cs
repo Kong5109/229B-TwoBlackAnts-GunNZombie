@@ -9,8 +9,31 @@ public class EnemyStateMachine : StateMachine
         Enemy?.GetComponent<Enemy>();
     }
 
+    private void OnEnable()
+    {
+        Enemy.OnTakeDamage += EnterTakeDamageState;
+        Enemy.OnDeath += EnterDeathState;
+    }
+
+    private void OnDisable()
+    {
+        Enemy.OnTakeDamage -= EnterTakeDamageState;
+        Enemy.OnDeath -= EnterDeathState;
+    }
+
+
     private void Start()
     {
         SwitchState(new EnemySpawnState(this));
+    }
+
+    public void EnterDeathState()
+    {
+
+    }
+
+    public void EnterTakeDamageState()
+    {
+
     }
 }

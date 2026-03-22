@@ -25,9 +25,6 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float bulletAcceleration = 80f;
 
-    [Header("Reload Settings")]
-    [SerializeField] private float reloadTime = 1.5f;
-
     [field: SerializeField] public GunData CurrentGunData { get; private set; }
     private int currentGunIndex = 0;
 
@@ -36,14 +33,14 @@ public class Weapon : MonoBehaviour
         foreach (var gun in guns)
         {
             gun.Initialize();
-            gun.gunObject.SetActive(false);
+            gun.GunObject.SetActive(false);
         }
 
         if (guns.Length > 0)
         {
             currentGunIndex = 0;
             CurrentGunData = guns[currentGunIndex];
-            CurrentGunData.gunObject.SetActive(true);
+            CurrentGunData.GunObject.SetActive(true);
         }
     }
 
@@ -52,21 +49,22 @@ public class Weapon : MonoBehaviour
     {
         if (guns.Length <= 1) return;
 
-        CurrentGunData.gunObject.SetActive(false);
+        CurrentGunData.GunObject.SetActive(false);
 
         currentGunIndex = (currentGunIndex + 1) % guns.Length;
         CurrentGunData = guns[currentGunIndex];
 
-        CurrentGunData.gunObject.SetActive(true);
+        CurrentGunData.GunObject.SetActive(true);
     }
 
+    #region Shoot
     // --- Shoot ---------------------------------
     public void Shoot()
     {
         if (CurrentGunData.IsReloading) { return; }
         if (CurrentGunData.CurrentAmmo <= 0) { return; }
 
-        switch (CurrentGunData.gunType)
+        switch (CurrentGunData.GunType)
         {
             case GunType.RayCastGunType: ShootRayCast(); break;
             case GunType.ProjectileGunType: ShootProjectile(); break;
@@ -90,6 +88,11 @@ public class Weapon : MonoBehaviour
         {
             GameObject obj = Instantiate(hitVFX, hit.point, Quaternion.identity);
             Destroy(obj, 5f);
+
+            if (hit.collider.TryGetComponent<Enemy>(out Enemy enemy))
+            {
+                enemy.TakeDamage(CurrentGunData.WeaponDamage);
+            }
         }
     }
 
@@ -98,6 +101,9 @@ public class Weapon : MonoBehaviour
         if (projectilePrefab == null || shootPoint == null) return;
 
         GameObject bullet = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+        DamageDealer damage = bullet.GetComponent<DamageDealer>();
+        damage.SetDamage(CurrentGunData.WeaponDamage);
+
         if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rb))
         {
             float mass = rb.mass;
@@ -105,10 +111,10 @@ public class Weapon : MonoBehaviour
             rb.AddForce(force * shootPoint.forward, ForceMode.Impulse);
         }
     }
-
+    #endregion
     // --- Reload ---------------------------------
     public void Reload()
     {
-        CurrentGunData.StartReload(reloadTime);
+        CurrentGunData.StartReload();
     }
 }
