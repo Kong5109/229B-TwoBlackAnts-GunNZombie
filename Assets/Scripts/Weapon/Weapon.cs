@@ -8,23 +8,27 @@ public enum GunType
 
 public class Weapon : MonoBehaviour
 {
+    [Header("Reference")]
+    [SerializeField] private Player player;
+
     [Header("Guns")]
     [SerializeField] private GunData[] guns;
 
     [Header("RayCast Settings")]
-    [SerializeField] private Camera playerCamera;
     [SerializeField] private float raycastRange = 100f;
+    [SerializeField] private GameObject hitVFX;
+    [SerializeField] private GameObject shootVFX;
     [SerializeField] private LayerMask hitLayer;
 
     [Header("Projectile Settings")]
     [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private float projectileSpeed = 20f;
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private float bulletAcceleration = 80f;
 
     [Header("Reload Settings")]
     [SerializeField] private float reloadTime = 1.5f;
 
-    public GunData CurrentGunData { get; private set; }
+    [field: SerializeField] public GunData CurrentGunData { get; private set; }
     private int currentGunIndex = 0;
 
     private void Start()
@@ -69,27 +73,42 @@ public class Weapon : MonoBehaviour
         }
 
         CurrentGunData.UseAmmo();
+        if (CurrentGunData.CurrentAmmo <= 0)
+        {
+            Reload();
+        }
     }
 
     private void ShootRayCast()
     {
-        if (playerCamera == null) return;
-        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
-        if (Physics.Raycast(ray, out RaycastHit hit, raycastRange, hitLayer))
-            Debug.Log($"[RayCast] Hit: {hit.collider.name}");
+        if (player == null) return;
+
+        //Ray ray = player.Camera.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2));
+        Vector3 startPos = this.transform.position;
+        Vector3 direction = this.transform.forward;
+        if (Physics.Raycast(startPos, direction, out RaycastHit hit, raycastRange, hitLayer))
+        {
+            GameObject obj = Instantiate(hitVFX, hit.point, Quaternion.identity);
+            Destroy(obj, 5f);
+        }
     }
 
     private void ShootProjectile()
     {
-        if (projectilePrefab == null || firePoint == null) return;
-        GameObject p = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        if (p.TryGetComponent<Rigidbody>(out var rb))
-            rb.linearVelocity = firePoint.forward * projectileSpeed;
+        if (projectilePrefab == null || shootPoint == null) return;
+
+        GameObject bullet = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+        if (bullet.TryGetComponent<Rigidbody>(out Rigidbody rb))
+        {
+            float mass = rb.mass;
+            float force = mass * bulletAcceleration;
+            rb.AddForce(force * shootPoint.forward, ForceMode.Impulse);
+        }
     }
 
     // --- Reload ---------------------------------
     public void Reload()
     {
-        CurrentGunData.StartReload(this, reloadTime);
+        CurrentGunData.StartReload(reloadTime);
     }
 }

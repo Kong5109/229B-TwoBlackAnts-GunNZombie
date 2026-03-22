@@ -1,16 +1,19 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
-public class GunData
+public class GunData : MonoBehaviour
 {
+    [field: Header("Gun Attrubute")]
     public GameObject gunObject;
     public GunType gunType;
     public int maxAmmo = 30;
 
-    public int CurrentAmmo { get; private set; }
-    public bool IsReloading { get; private set; }
-    private Coroutine reloadCoroutine;
+    [field: Header("Gun Data")]
+    [field: SerializeField] public int CurrentAmmo { get; private set; }
+    [field: SerializeField] public bool IsReloading { get; private set; }
+    [field: SerializeField] public float ReloadRemaningTime { get; private set; } = 1f;
 
     public void Initialize()
     {
@@ -18,18 +21,25 @@ public class GunData
         IsReloading = false;
     }
 
-    public void StartReload(MonoBehaviour owner, float reloadTime)
+    public void StartReload(float reloadTime)
     {
         if (IsReloading || CurrentAmmo == maxAmmo) return;
-        reloadCoroutine = owner.StartCoroutine(ReloadCoroutine(reloadTime));
+        ReloadRemaningTime = reloadTime;
+        IsReloading = true;
     }
 
-    private IEnumerator ReloadCoroutine(float reloadTime)
+    private void Update()
     {
-        IsReloading = true;
-        yield return new WaitForSeconds(reloadTime);
-        CurrentAmmo = maxAmmo;
-        IsReloading = false;
+        if (IsReloading == false) { return; }
+
+        if (ReloadRemaningTime < 0)
+        {
+            CurrentAmmo = maxAmmo;
+            IsReloading = false;
+            return;
+        }
+
+        ReloadRemaningTime -= Time.deltaTime;
     }
 
     public void UseAmmo()

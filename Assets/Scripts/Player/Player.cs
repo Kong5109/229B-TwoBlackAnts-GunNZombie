@@ -20,8 +20,29 @@ public class Player : MonoBehaviour
         Camera = Camera.main;
     }
 
+    private void OnEnable()
+    {
+        InputReader.OnAttacking += Shoot;
+        InputReader.OnChangingWeapon += ChangeWeapon;
+    }
+
+    private void OnDisable()
+    {
+        InputReader.OnAttacking -= Shoot;
+        InputReader.OnChangingWeapon -= ChangeWeapon;
+    }
     private void Update()
     {
         Debug.DrawRay(WeaponHolder.transform.position, WeaponHolder.transform.forward * 100, Color.red);
+    }
+
+    private void Shoot()
+    {
+        Weapon.Shoot();
+    }
+
+    private void ChangeWeapon()
+    {
+        Weapon.SwitchGun();
     }
 }
