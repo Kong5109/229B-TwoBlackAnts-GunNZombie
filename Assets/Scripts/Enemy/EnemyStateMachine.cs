@@ -29,7 +29,7 @@ public class EnemyStateMachine : StateMachine
 
     public void EnterDeathState()
     {
-
+        SwitchState(new EnemyDeathState(this));
     }
 
     public void EnterTakeDamageState()
