@@ -12,7 +12,9 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject[] raycastGunAmmo;
     [SerializeField] private GameObject projectileGunAmmoHolder;
     [SerializeField] private GameObject[] projectileGunAmmo;
+    [SerializeField] private Slider progressBar;
 
+    private EnemySpawner spawner;
     private GunData currentGun;
     private Player currentPlayer;
 
@@ -20,11 +22,15 @@ public class UI : MonoBehaviour
     {
         eventBus = FindAnyObjectByType<EventBus>();
         currentPlayer = FindAnyObjectByType<Player>();
+        spawner = FindFirstObjectByType<EnemySpawner>();
     }
 
     private void OnEnable()
     {
         eventBus.OnGunUpdate += SetCurrentGun;
+
+        progressBar.maxValue = spawner.EnemyKillToWin;
+        progressBar.value = spawner.KillCounter;
     }
 
     private void OnDisable()
@@ -50,7 +56,7 @@ public class UI : MonoBehaviour
                 crossHair.SetActive(true);
             }
         }
-
+        progressBar.value = spawner.KillCounter;
         uiCursor.transform.position = Mouse.current.position.ReadValue();
     }
 
