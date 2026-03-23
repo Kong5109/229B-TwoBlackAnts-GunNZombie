@@ -18,9 +18,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float raycastRange = 100f;
     [SerializeField] private GameObject hitVFX;
     [SerializeField] private GameObject shootVFX;
+    [SerializeField] private Transform shootVFXPoint;
     [SerializeField] private LayerMask hitLayer;
 
     [Header("Projectile Settings")]
+    [SerializeField] private GameObject projectileShootVFX;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float bulletAcceleration = 80f;
@@ -89,6 +91,9 @@ public class Weapon : MonoBehaviour
             GameObject obj = Instantiate(hitVFX, hit.point, Quaternion.identity);
             Destroy(obj, 5f);
 
+            obj = Instantiate(shootVFX, shootVFXPoint.position , Quaternion.identity);
+            Destroy(obj, 5f);
+
             if (hit.collider.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 enemy.TakeDamage(CurrentGunData.WeaponDamage);
@@ -110,6 +115,9 @@ public class Weapon : MonoBehaviour
             float force = mass * bulletAcceleration;
             rb.AddForce(force * shootPoint.forward, ForceMode.Impulse);
         }
+
+        GameObject obj = Instantiate(projectileShootVFX, shootPoint.position, Quaternion.identity);
+        Destroy(obj, 5f);
     }
     #endregion
     // --- Reload ---------------------------------
