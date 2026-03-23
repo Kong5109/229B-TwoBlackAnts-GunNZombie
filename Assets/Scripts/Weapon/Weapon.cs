@@ -44,6 +44,8 @@ public class Weapon : MonoBehaviour
             CurrentGunData = guns[currentGunIndex];
             CurrentGunData.GunObject.SetActive(true);
         }
+
+        player.EventBus.RaiseGunUpdate(CurrentGunData);
     }
 
     // --- Switch Gun ---------------------------------
@@ -57,6 +59,7 @@ public class Weapon : MonoBehaviour
         CurrentGunData = guns[currentGunIndex];
 
         CurrentGunData.GunObject.SetActive(true);
+        player.EventBus.RaiseGunUpdate(CurrentGunData);
     }
 
     #region Shoot
@@ -77,6 +80,8 @@ public class Weapon : MonoBehaviour
         {
             Reload();
         }
+
+        player.EventBus.RaiseGunUpdate(CurrentGunData);
     }
 
     private void ShootRayCast()
@@ -124,5 +129,10 @@ public class Weapon : MonoBehaviour
     public void Reload()
     {
         CurrentGunData.StartReload();
+    }
+
+    public void UpdateGun()
+    {
+        player.EventBus.RaiseGunUpdate(CurrentGunData);
     }
 }

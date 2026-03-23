@@ -18,6 +18,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         Camera = Camera.main;
+
+        EventBus.RaiseGameStart();
     }
 
     private void OnEnable()

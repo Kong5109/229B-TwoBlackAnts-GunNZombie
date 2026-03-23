@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class EnemySpawnState : EnemyBaseState
 {
-    private float spawnIdleDelay = 2f;
+    private float spawnIdleDelay = 1f;
     public EnemySpawnState(EnemyStateMachine stateMachine) : base(stateMachine)
     {
     }
@@ -16,7 +16,6 @@ public class EnemySpawnState : EnemyBaseState
         {
             stateMachine.SwitchState(new EnemyIdleState(stateMachine));
         }
-
         spawnIdleDelay -= deltaTime;
     }
 

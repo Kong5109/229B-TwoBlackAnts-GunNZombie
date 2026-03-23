@@ -15,6 +15,7 @@ public class EnemyDeathState : EnemyBaseState
         rb = stateMachine.Enemy.Rigidbody;
         rb.freezeRotation = false;
 
+        return;
         Vector3 direction = (-stateMachine.Enemy.transform.forward + Vector3.up).normalized;
         rb.AddForce(direction * 25, ForceMode.Impulse);
     }

@@ -25,10 +25,16 @@ public abstract class EnemyBaseState : State
 
     protected void MoveTo(Vector3 targetPos)
     {
+        if (targetPos == null || targetPos == Vector3.zero)
+        {
+            stateMachine.Enemy.Rigidbody.linearVelocity = Vector3.zero;
+        }
+
         Vector3 moveDirection = targetPos - stateMachine.transform.position;
         moveDirection.y = 0f;
         moveDirection = moveDirection.normalized;
 
-        stateMachine.Enemy.Rigidbody.linearVelocity = moveDirection * stateMachine.Enemy.MoveSpeed;
+        Vector3 moveVelocity = new Vector3(moveDirection.x, stateMachine.Enemy.Rigidbody.linearVelocity.y, moveDirection.z);
+        stateMachine.Enemy.Rigidbody.linearVelocity = moveVelocity * stateMachine.Enemy.MoveSpeed;
     }
 }
