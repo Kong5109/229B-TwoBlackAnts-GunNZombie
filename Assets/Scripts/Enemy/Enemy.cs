@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -8,6 +9,7 @@ public class Enemy : MonoBehaviour
 
     [field: SerializeField] public Player Target { get; private set; }
     [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
+    [field: SerializeField] public Ragdoll Ragdoll { get; private set; }
     [field: SerializeField] public EventBus EventBus { get; private set; }
 
     [field: SerializeField] public float MoveSpeed { get; private set; } = 1f;
@@ -40,5 +42,9 @@ public class Enemy : MonoBehaviour
             this.EventBus.RaiseEnemyDeath(this);
             Destroy(gameObject, DestroyTime);
         }
+    }
+    public void StartRagdoll()
+    {
+        Ragdoll.ToggleRagdoll(true);
     }
 }

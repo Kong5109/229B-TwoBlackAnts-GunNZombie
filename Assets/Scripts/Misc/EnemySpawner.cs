@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Transform[] spawnPoints;
+    [SerializeField] private Transform minPos;
+    [SerializeField] private Transform maxPos;
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private EventBus eventBus;
     [field: SerializeField] public int EnemyKillToWin { get; private set; } = 7;
@@ -31,10 +32,12 @@ public class EnemySpawner : MonoBehaviour
     }
     private void SpawnEnemy()
     {
-        int index = Random.Range(0, spawnPoints.Length);
-        Transform transform = spawnPoints[index];
+        Vector3 spawnPos;
+        spawnPos.x = Random.Range(minPos.position.x, maxPos.position.x);
+        spawnPos.y = Random.Range(minPos.position.y, maxPos.position.y);
+        spawnPos.z = Random.Range(minPos.position.z, maxPos.position.z);
 
-        Instantiate(enemyPrefab, transform.position, transform.rotation);
+        Instantiate(enemyPrefab, transform.position + spawnPos, transform.rotation);
     }
 
     private void EnemyDeath(Enemy enemy)

@@ -34,7 +34,6 @@ public abstract class EnemyBaseState : State
         moveDirection.y = 0f;
         moveDirection = moveDirection.normalized;
 
-        Vector3 moveVelocity = new Vector3(moveDirection.x, stateMachine.Enemy.Rigidbody.linearVelocity.y, moveDirection.z);
-        stateMachine.Enemy.Rigidbody.linearVelocity = moveVelocity * stateMachine.Enemy.MoveSpeed;
+        stateMachine.Enemy.transform.position += moveDirection * stateMachine.Enemy.MoveSpeed * Time.deltaTime;
     }
 }

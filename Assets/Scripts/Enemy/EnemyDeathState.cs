@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class EnemyDeathState : EnemyBaseState
 {
     private float DestroyTime = 5;
@@ -12,15 +12,17 @@ public class EnemyDeathState : EnemyBaseState
 
     public override void Enter()
     {
+        stateMachine.Enemy.StartRagdoll();
         rb = stateMachine.Enemy.Rigidbody;
         rb.freezeRotation = false;
 
         return;
-        Vector3 direction = (-stateMachine.Enemy.transform.forward + Vector3.up).normalized;
-        rb.AddForce(direction * 25, ForceMode.Impulse);
+        /*Vector3 direction = (-stateMachine.Enemy.transform.forward + Vector3.up).normalized;
+        rb.AddForce(direction * 25, ForceMode.Impulse);*/
     }
     public override void Tick(float deltaTime)
     {
+        
     }
 
     public override void Exit()
