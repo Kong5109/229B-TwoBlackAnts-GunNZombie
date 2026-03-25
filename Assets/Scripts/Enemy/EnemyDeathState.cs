@@ -12,6 +12,7 @@ public class EnemyDeathState : EnemyBaseState
 
     public override void Enter()
     {
+        stateMachine.Enemy.HealthBar.gameObject.SetActive(false);
         stateMachine.Enemy.StartRagdoll();
         rb = stateMachine.Enemy.Rigidbody;
         rb.freezeRotation = false;

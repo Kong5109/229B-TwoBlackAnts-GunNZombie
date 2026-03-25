@@ -34,6 +34,6 @@ public class EnemyStateMachine : StateMachine
 
     public void EnterTakeDamageState()
     {
-
+        Enemy.HealthBar.value = Enemy.Health;
     }
 }

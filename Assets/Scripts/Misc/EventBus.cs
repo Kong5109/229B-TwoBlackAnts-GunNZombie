@@ -8,6 +8,7 @@ public class EventBus : MonoBehaviour
     public event Action<Enemy> OnEnemySpawn;
     public event Action<Enemy> OnEnemyDeath;
     public event Action<GunData> OnGunUpdate;
+    public event Action OnGunShoot;
     public void RaiseGameStart()
     {
         OnGameStart?.Invoke();
@@ -31,5 +32,9 @@ public class EventBus : MonoBehaviour
     public void RaiseGunUpdate(GunData gunData)
     {
         OnGunUpdate?.Invoke(gunData);
+    }
+    public void RaiseGunShoot()
+    {
+        OnGunShoot?.Invoke();
     }
 }

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -7,6 +8,9 @@ public class UI : MonoBehaviour
     [SerializeField] private EventBus eventBus;
     [SerializeField] private Image reloadImage;
     [SerializeField] private GameObject crossHair;
+    [SerializeField] private Image[] crossHairImages;
+    [SerializeField] private Color IdleCrosshairColor;
+    [SerializeField] private Color ShootCrosshairColor;
     [SerializeField] private GameObject uiCursor;
     [SerializeField] private GameObject raycastGunAmmoHolder;
     [SerializeField] private GameObject[] raycastGunAmmo;
@@ -28,6 +32,7 @@ public class UI : MonoBehaviour
     private void OnEnable()
     {
         eventBus.OnGunUpdate += SetCurrentGun;
+        eventBus.OnGunShoot += GunShootCrosshairVFX;
 
         progressBar.maxValue = spawner.EnemyKillToWin;
         progressBar.value = spawner.KillCounter;
@@ -36,6 +41,7 @@ public class UI : MonoBehaviour
     private void OnDisable()
     {
         eventBus.OnGunUpdate -= SetCurrentGun;
+        eventBus.OnGunShoot -= GunShootCrosshairVFX;
     }
     private void Update()
     {
@@ -99,6 +105,24 @@ public class UI : MonoBehaviour
                     projectileGunAmmo[i]?.gameObject.SetActive(false);
                 }
             }
+        }
+    }
+
+    private void GunShootCrosshairVFX()
+    {
+        StartCoroutine(ShootCrosshairRoutine());
+    }
+
+    private IEnumerator ShootCrosshairRoutine()
+    {
+        foreach (var img in crossHairImages)
+        {
+            img.color = ShootCrosshairColor;
+        }
+        yield return new WaitForSeconds(0.1f);
+        foreach (var img in crossHairImages)
+        {
+            img.color = IdleCrosshairColor;
         }
     }
 }

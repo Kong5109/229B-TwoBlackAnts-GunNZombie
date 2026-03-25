@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [field:SerializeField] public Weapon Weapon { get; private set; }
     [field: SerializeField] public EventBus EventBus { get; private set; }
     [field: SerializeField] public GameObject WeaponHolder { get; private set; }
+    [field: SerializeField] public Animator Animator { get; private set; }
     [field: SerializeField] public bool IsShootingMode { get; private set; } = false;
     public Camera Camera { get; private set; }
     private void Awake()

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public Rigidbody Rigidbody { get; private set; }
     [field: SerializeField] public Ragdoll Ragdoll { get; private set; }
     [field: SerializeField] public EventBus EventBus { get; private set; }
+    [field: SerializeField] public Slider HealthBar { get; private set; }
 
     [field: SerializeField] public float MoveSpeed { get; private set; } = 1f;
     [field: SerializeField] public float ChasingRange { get; private set; } = 50f;
@@ -25,7 +27,11 @@ public class Enemy : MonoBehaviour
         Target ??= FindFirstObjectByType<Player>();
         EventBus = FindAnyObjectByType<EventBus>();
     }
-
+    private void Start()
+    {
+        HealthBar.maxValue = Health;
+        HealthBar.value = Health;
+    }
     public void TakeDamage(int damage)
     {
         if (isDead) { return; }
