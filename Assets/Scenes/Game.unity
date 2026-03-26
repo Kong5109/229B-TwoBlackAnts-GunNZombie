@@ -19014,7 +19014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be3b69574d42474bafa8ac2c5cc3860, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: MainMenu
+  sceneName: EndCredit
 --- !u!1 &2139250972
 GameObject:
   m_ObjectHideFlags: 0
