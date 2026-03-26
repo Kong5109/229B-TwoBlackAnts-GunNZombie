@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public enum GunType
 {
     RayCastGunType,
@@ -10,6 +9,7 @@ public class Weapon : MonoBehaviour
 {
     [Header("Reference")]
     [SerializeField] private Player player;
+    [SerializeField] private AudioSource AudioSource;
 
     [Header("Guns")]
     [SerializeField] private GunData[] guns;
@@ -20,12 +20,14 @@ public class Weapon : MonoBehaviour
     [SerializeField] private GameObject shootVFX;
     [SerializeField] private Transform shootVFXPoint;
     [SerializeField] private LayerMask hitLayer;
+    [SerializeField] private AudioClip shootSFXRaycastGun;
 
     [Header("Projectile Settings")]
     [SerializeField] private GameObject projectileShootVFX;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform shootPoint;
     [SerializeField] private float bulletAcceleration = 80f;
+    [SerializeField] private AudioClip shootSFXProjectileGun;
 
     [field: SerializeField] public GunData CurrentGunData { get; private set; }
     private int currentGunIndex = 0;
@@ -112,6 +114,8 @@ public class Weapon : MonoBehaviour
                 enemy.TakeDamage(CurrentGunData.WeaponDamage);
             }
         }
+
+        AudioSource.PlayOneShot(shootSFXRaycastGun);
     }
 
     private void ShootProjectile()
@@ -131,6 +135,8 @@ public class Weapon : MonoBehaviour
 
         GameObject obj = Instantiate(projectileShootVFX, shootPoint.position, Quaternion.identity);
         Destroy(obj, 5f);
+
+        AudioSource.PlayOneShot(shootSFXProjectileGun);
     }
     #endregion
     // --- Reload ---------------------------------

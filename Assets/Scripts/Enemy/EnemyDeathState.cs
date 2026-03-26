@@ -12,6 +12,7 @@ public class EnemyDeathState : EnemyBaseState
 
     public override void Enter()
     {
+        stateMachine.Enemy.AudioSource.PlayOneShot(stateMachine.Enemy.SFXDead);
         stateMachine.Enemy.HealthBar.gameObject.SetActive(false);
         stateMachine.Enemy.StartRagdoll();
         stateMachine.Enemy.StartDeathVFX();

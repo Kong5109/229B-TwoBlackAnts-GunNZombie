@@ -34,6 +34,7 @@ public class EnemyStateMachine : StateMachine
 
     public void EnterTakeDamageState()
     {
+        Enemy.AudioSource.PlayOneShot(Enemy.SFXHurt);
         Enemy.HealthBar.value = Enemy.Health;
     }
 }
