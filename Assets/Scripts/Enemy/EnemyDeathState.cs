@@ -14,6 +14,8 @@ public class EnemyDeathState : EnemyBaseState
     {
         stateMachine.Enemy.HealthBar.gameObject.SetActive(false);
         stateMachine.Enemy.StartRagdoll();
+        stateMachine.Enemy.StartDeathVFX();
+
         rb = stateMachine.Enemy.Rigidbody;
         rb.freezeRotation = false;
 

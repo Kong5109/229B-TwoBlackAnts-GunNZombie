@@ -107,6 +107,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1122154631434917528}
+  - {fileID: 3132714168780133274}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &5759961769636191586
@@ -126,6 +127,8 @@ MonoBehaviour:
   <Ragdoll>k__BackingField: {fileID: 950473933035994333}
   <EventBus>k__BackingField: {fileID: 0}
   <HealthBar>k__BackingField: {fileID: 6831328057140326304}
+  <DeathVFX>k__BackingField: {fileID: 6555745389286381075, guid: e00c96b7fee5c064c9a1183810f13ab4, type: 3}
+  <VFXSpawnPoint>k__BackingField: {fileID: 3132714168780133274}
   <MoveSpeed>k__BackingField: 0.8
   <ChasingRange>k__BackingField: 50
   <AttackRange>k__BackingField: 2
@@ -2781,6 +2784,37 @@ CharacterJoint:
   m_EnablePreprocessing: 1
   m_MassScale: 1
   m_ConnectedMassScale: 1
+--- !u!1 &8138929524040452056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3132714168780133274}
+  m_Layer: 6
+  m_Name: Spawn VFX Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3132714168780133274
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8138929524040452056}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.388, z: 0.481}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6948781637942445182}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8163096839627442082
 GameObject:
   m_ObjectHideFlags: 0

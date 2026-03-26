@@ -60,6 +60,12 @@ public class Weapon : MonoBehaviour
 
         CurrentGunData.GunObject.SetActive(true);
         UpdateGun();
+        player.Animator.CrossFadeInFixedTime("Idle", 0.1f);
+
+        if (CurrentGunData.IsReloading)
+        {
+            player.Animator.CrossFadeInFixedTime("StartReload", 0.1f);
+        }
     }
 
     #region Shoot
@@ -131,6 +137,15 @@ public class Weapon : MonoBehaviour
     public void Reload()
     {
         CurrentGunData.StartReload();
+        player.Animator.CrossFadeInFixedTime("StartReload", 0.1f);
+    }
+
+    public void TryReloadFinish(GunData whoFinish)
+    {
+        if (CurrentGunData == whoFinish)
+        {
+            player.Animator.CrossFadeInFixedTime("FinishReload", 0.1f);
+        }
     }
 
     public void UpdateGun()

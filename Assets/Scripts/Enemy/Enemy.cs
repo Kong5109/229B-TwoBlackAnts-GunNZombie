@@ -13,6 +13,8 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public Ragdoll Ragdoll { get; private set; }
     [field: SerializeField] public EventBus EventBus { get; private set; }
     [field: SerializeField] public Slider HealthBar { get; private set; }
+    [field: SerializeField] public GameObject DeathVFX { get; private set; }
+    [field: SerializeField] public Transform VFXSpawnPoint { get; private set; }
 
     [field: SerializeField] public float MoveSpeed { get; private set; } = 1f;
     [field: SerializeField] public float ChasingRange { get; private set; } = 50f;
@@ -52,5 +54,11 @@ public class Enemy : MonoBehaviour
     public void StartRagdoll()
     {
         Ragdoll.ToggleRagdoll(true);
+    }
+
+    public void StartDeathVFX()
+    {
+        GameObject obj = Instantiate(DeathVFX, VFXSpawnPoint.position, Quaternion.identity);
+        Destroy(obj, 3f);
     }
 }

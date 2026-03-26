@@ -42,6 +42,7 @@ public class GunData : MonoBehaviour
             CurrentAmmo = MaxAmmo;
             IsReloading = false;
             weapon.UpdateGun();
+            weapon.TryReloadFinish(this);
             return;
         }
 
