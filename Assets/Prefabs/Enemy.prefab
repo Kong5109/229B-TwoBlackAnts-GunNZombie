@@ -130,6 +130,7 @@ MonoBehaviour:
   <HealthBar>k__BackingField: {fileID: 6831328057140326304}
   <DeathVFX>k__BackingField: {fileID: 6555745389286381075, guid: e00c96b7fee5c064c9a1183810f13ab4, type: 3}
   <VFXSpawnPoint>k__BackingField: {fileID: 3132714168780133274}
+  <Animator>k__BackingField: {fileID: 5345563332028808711}
   <AudioSource>k__BackingField: {fileID: 1475327815422009841}
   <SFXHurt>k__BackingField: {fileID: 8300000, guid: 08f59705a25cce44db59a5c8863b4e72, type: 3}
   <SFXDead>k__BackingField: {fileID: 8300000, guid: 0f32d987a08b08a4aa607499b0ef9d40, type: 3}
@@ -196,8 +197,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.8971499, y: 2.5, z: 0.47205353}
-  m_Center: {x: 0.013532922, y: 1.25, z: -0.023023605}
+  m_Size: {x: 0.8971499, y: 2.3361094, z: 0.47205353}
+  m_Center: {x: 0.013532937, y: 1.3319453, z: -0.023023605}
 --- !u!114 &950473933035994333
 MonoBehaviour:
   m_ObjectHideFlags: 0
