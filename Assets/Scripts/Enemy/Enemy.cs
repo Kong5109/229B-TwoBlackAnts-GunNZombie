@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     [field: SerializeField] public Slider HealthBar { get; private set; }
     [field: SerializeField] public GameObject DeathVFX { get; private set; }
     [field: SerializeField] public Transform VFXSpawnPoint { get; private set; }
+    [field: SerializeField] public Animator Animator { get; private set; }
     [field: SerializeField] public AudioSource AudioSource { get; private set; }
     [field: SerializeField] public AudioClip SFXHurt { get; private set; }
     [field: SerializeField] public AudioClip SFXDead { get; private set; }

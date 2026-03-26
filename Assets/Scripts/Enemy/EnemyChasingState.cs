@@ -8,6 +8,7 @@ public class EnemyChasingState : EnemyBaseState
 
     public override void Enter()
     {
+        stateMachine.Enemy.Animator.CrossFadeInFixedTime("Walk", 0.1f);
     }
     public override void Tick(float deltaTime)
     {

@@ -17,6 +17,7 @@ public class UI : MonoBehaviour
     [SerializeField] private GameObject projectileGunAmmoHolder;
     [SerializeField] private GameObject[] projectileGunAmmo;
     [SerializeField] private Slider progressBar;
+    [SerializeField] private GameObject endUI;
 
     private EnemySpawner spawner;
     private GunData currentGun;
@@ -33,15 +34,21 @@ public class UI : MonoBehaviour
     {
         eventBus.OnGunUpdate += SetCurrentGun;
         eventBus.OnGunShoot += GunShootCrosshairVFX;
+        eventBus.OnGameOver += OnEndGame;
 
         progressBar.maxValue = spawner.EnemyKillToWin;
         progressBar.value = spawner.KillCounter;
+
+        endUI.SetActive(false);
     }
 
     private void OnDisable()
     {
         eventBus.OnGunUpdate -= SetCurrentGun;
         eventBus.OnGunShoot -= GunShootCrosshairVFX;
+        eventBus.OnGameOver -= OnEndGame;
+
+        Time.timeScale = 1f;
     }
     private void Update()
     {
@@ -124,5 +131,11 @@ public class UI : MonoBehaviour
         {
             img.color = IdleCrosshairColor;
         }
+    }
+
+    private void OnEndGame()
+    {
+        Time.timeScale = 0f;
+        endUI.SetActive(true);
     }
 }

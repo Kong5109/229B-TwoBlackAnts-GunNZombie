@@ -16,13 +16,13 @@ public class EnemySpawner : MonoBehaviour
     private void OnEnable()
     {
         eventBus.OnEnemyDeath += EnemyDeath;
-        eventBus.OnGameOver += EndGame;
+        //eventBus.OnGameOver += EndGame;
     }
 
     private void OnDisable()
     {
         eventBus.OnEnemyDeath -= EnemyDeath;
-        eventBus.OnGameOver -= EndGame;
+        //eventBus.OnGameOver -= EndGame;
     }
     private void Start()
     {
